@@ -17,6 +17,8 @@ namespace Jarvis
 
             path = $"LDAP://{args[0]}:389";
             adEntry = new DirectoryEntry(path);
+            Console.WriteLine();
+
             try
             {
                 adEntry.RefreshCache();
@@ -40,8 +42,9 @@ namespace Jarvis
 
             Console.WriteLine("[+] Adding users to groups...");
             CreateUsers.AddEvilUsersToGroups(adEntry);
+            Console.WriteLine();
 
-            Console.WriteLine("AD configured with OUs, Groups, Users, and proper Group Memberships. Enjoy :)");
+            Console.WriteLine("[*] AD configured with OUs, Groups, Users, and proper Group Memberships. Enjoy :)");
         }
     }
 }

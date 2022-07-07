@@ -203,6 +203,7 @@ namespace Jarvis
             }
         }
 
+        // https://stackoverflow.com/questions/2143052/adding-and-removing-users-from-active-directory-groups-in-net  -- made adding users to groups ezpz
         public static void AddEvilUsersToGroups(DirectoryEntry evilDirectoryEntry)
         {
             DirectorySearcher searcher = new DirectorySearcher(evilDirectoryEntry.Children.Find("OU=US"));

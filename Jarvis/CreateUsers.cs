@@ -15,9 +15,9 @@ namespace Jarvis
         public static List<string> pharmaUserList = new List<string> { "Fernando Vera", "Leon", "Shayla Nico" };
         public static List<string> salesUserList = new List<string> { "Ollie Parker" };
 
-        public static void CreateEvilUsers(DirectoryEntry evilDirectoryEntry)
+        public static void CreateEvilUsers(DirectoryEntry evilDirectoryEntry, string domain)
         {
-            string upnSuffix = "@evil.corp";
+            string upnSuffix = "@" + domain;
             DirectorySearcher searcher = new DirectorySearcher(evilDirectoryEntry.Children.Find("OU=US"));
             searcher.Filter = "(objectCategory=organizationalUnit)";
             var results = searcher.FindAll();
@@ -203,7 +203,7 @@ namespace Jarvis
             }
         }
 
-        public static void AddEvilUsersToGroups(DirectoryEntry evilDirectoryEntry)
+        public static void AddEvilUsersToGroups(DirectoryEntry evilDirectoryEntry, string domain)
         {
             DirectorySearcher searcher = new DirectorySearcher(evilDirectoryEntry.Children.Find("OU=US"));
             searcher.Filter = "(objectCategory=User)";
@@ -218,7 +218,7 @@ namespace Jarvis
                 {
                     if (properties.Contains("Executives"))
                     {
-                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "evil.corp"))
+                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, domain))
                         {
                             GroupPrincipal execGroup = GroupPrincipal.FindByIdentity(principalContext, "Executives");
                             execGroup.Members.Add(principalContext, IdentityType.SamAccountName, userName);
@@ -228,7 +228,7 @@ namespace Jarvis
 
                     if (properties.Contains("HR"))
                     {
-                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "evil.corp"))
+                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, domain))
                         {
                             GroupPrincipal hrGroup = GroupPrincipal.FindByIdentity(principalContext, "HR");
                             hrGroup.Members.Add(principalContext, IdentityType.SamAccountName, userName);
@@ -241,7 +241,7 @@ namespace Jarvis
 
                         if (userName == "darlene.alderson-adm" || userName == "elliot.alderson-adm")
                         {
-                            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "evil.corp"))
+                            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, domain))
                             {
                                 GroupPrincipal srvAdminGroup = GroupPrincipal.FindByIdentity(principalContext, "Server Admins");
                                 srvAdminGroup.Members.Add(principalContext, IdentityType.SamAccountName, userName);
@@ -250,7 +250,7 @@ namespace Jarvis
                         }
                         if (userName == "tyrell.wellick-adm")
                         {
-                            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "evil.corp"))
+                            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, domain))
                             {
                                 GroupPrincipal clientAdminGroup = GroupPrincipal.FindByIdentity(principalContext, "Client Admins");
                                 clientAdminGroup.Members.Add(principalContext, IdentityType.SamAccountName, userName);
@@ -258,7 +258,7 @@ namespace Jarvis
                             }
                         }
 
-                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "evil.corp"))
+                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, domain))
                         {
                             GroupPrincipal itGroup = GroupPrincipal.FindByIdentity(principalContext, "IT");
                             itGroup.Members.Add(principalContext, IdentityType.SamAccountName, userName);
@@ -268,7 +268,7 @@ namespace Jarvis
 
                     if (properties.Contains("Legal"))
                     {
-                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "evil.corp"))
+                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, domain))
                         {
                             GroupPrincipal legalGroup = GroupPrincipal.FindByIdentity(principalContext, "Legal");
                             legalGroup.Members.Add(principalContext, IdentityType.SamAccountName, userName);
@@ -280,7 +280,7 @@ namespace Jarvis
                     {
                         if (userName == "shayla.nico")
                         {
-                            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "evil.corp"))
+                            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, domain))
                             {
                                 GroupPrincipal distGroup = GroupPrincipal.FindByIdentity(principalContext, "Distributors");
                                 distGroup.Members.Add(principalContext, IdentityType.SamAccountName, userName);
@@ -290,7 +290,7 @@ namespace Jarvis
 
                         if (userName == "leon")
                         {
-                            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "evil.corp"))
+                            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, domain))
                             {
                                 GroupPrincipal patGroup = GroupPrincipal.FindByIdentity(principalContext, "Patients");
                                 patGroup.Members.Add(principalContext, IdentityType.SamAccountName, userName);
@@ -300,7 +300,7 @@ namespace Jarvis
 
                         if (userName == "fernando.vera")
                         {
-                            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "evil.corp"))
+                            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, domain))
                             {
                                 GroupPrincipal manufGroup = GroupPrincipal.FindByIdentity(principalContext, "Manufacturers");
                                 manufGroup.Members.Add(principalContext, IdentityType.SamAccountName, userName);
@@ -308,7 +308,7 @@ namespace Jarvis
                             }
                         }
 
-                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "evil.corp"))
+                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, domain))
                         {
                             GroupPrincipal pharmaGroup = GroupPrincipal.FindByIdentity(principalContext, "Pharmaceuticals");
                             pharmaGroup.Members.Add(principalContext, IdentityType.SamAccountName, userName);
@@ -318,7 +318,7 @@ namespace Jarvis
 
                     if (properties.Contains("Sales"))
                     {
-                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "evil.corp"))
+                        using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, domain))
                         {
                             GroupPrincipal salesGroup = GroupPrincipal.FindByIdentity(principalContext, "Sales");
                             salesGroup.Members.Add(principalContext, IdentityType.SamAccountName, userName);

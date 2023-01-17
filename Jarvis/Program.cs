@@ -12,10 +12,11 @@ namespace Jarvis
             Thread.Sleep(30000);
             List<string> childOUs = new List<string> { "Executives", "HR", "IT", "Legal", "Pharmaceuticals", "Sales", "Servers", "Clients" };
             DirectoryEntry adEntry;
-            
+
+            string domain = args[0];
             string path;
 
-            path = $"LDAP://{args[0]}:389";
+            path = $"LDAP://{domain}:389";
             adEntry = new DirectoryEntry(path);
             try
             {
@@ -36,10 +37,10 @@ namespace Jarvis
             CreateGroups.CreateEvilGroups(adEntry);
 
             Console.WriteLine("[+] Creating user accounts..." );
-            CreateUsers.CreateEvilUsers(adEntry);
+            CreateUsers.CreateEvilUsers(adEntry, domain);
 
             Console.WriteLine("[+] Adding users to groups...");
-            CreateUsers.AddEvilUsersToGroups(adEntry);
+            CreateUsers.AddEvilUsersToGroups(adEntry, domain);
 
             Console.WriteLine("AD configured with OUs, Groups, Users, and proper Group Memberships. Enjoy :)");
         }

@@ -42,8 +42,11 @@ namespace Jarvis
             CreateUsers.CreateEvilUsers(adEntry, domain);
 
             Console.WriteLine("[+] Adding users to groups...");
-            CreateUsers.AddEvilUsersToGroups(adEntry);
+
+            CreateUsers.AddEvilUsersToGroups(adEntry, domain);
+
             Console.WriteLine();
+
 
             Console.WriteLine("[*] AD configured with OUs, Groups, Users, and proper Group Memberships. Enjoy :)");
         }
